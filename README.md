@@ -100,6 +100,14 @@ and follow the instructions there to issue your pull request.
 After your pull request has been issued, steps 2 and 3 can be repeated
 to add new changes until your pull request has been merged.
 
+### Don't do what Donnie Don't does
+
+The main branch of trident is called `master`. Try not to ever push
+changes on the master branch directly to the main repository (i.e.,
+`git push origin master`). This will add your changes for
+everyone. However, if done accidentally, don't worry, it can be
+undone.
+
 ## Resources
 
  * Documentation: http://foggie-trident.readthedocs.org
