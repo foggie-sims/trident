@@ -1,9 +1,8 @@
 # Trident
 
-[![CircleCI](https://circleci.com/gh/trident-project/trident/tree/master.svg?style=svg)](https://circleci.com/gh/trident-project/trident/tree/master)
-[![Coverage Status](https://coveralls.io/repos/github/trident-project/trident/badge.svg?branch=master)](https://coveralls.io/github/trident-project/trident?branch=master)
-[![Documentation Status](https://readthedocs.org/projects/trident/badge/?version=latest)](http://trident.readthedocs.io/en/latest/?badge=latest)
-[![PyPI version](https://badge.fury.io/py/trident.svg)](https://badge.fury.io/py/trident)
+[![CircleCI](https://circleci.com/gh/foggie-sims/trident/tree/master.svg?style=svg)](https://circleci.com/gh/foggie-sims/trident/tree/master)
+[![Coverage Status](https://coveralls.io/repos/github/foggie-sims/trident/badge.svg?branch=master)](https://coveralls.io/github/foggie-sims/trident?branch=master)
+[![Documentation Status](https://readthedocs.org/projects/foggie-trident/badge/?version=latest)](https://foggie-trident.readthedocs.io/en/latest/?badge=latest)
 
 Trident is a Python package for creating synthetic absorption-line spectra
 from astrophysical hydrodynamics simulations.  It utilizes the yt package
@@ -22,15 +21,11 @@ pip install trident
 To get the development version, clone this repository and install like this:
 
 ```
-git clone https://github.com/trident-project/trident
+git clone https://github.com/foggie-sims/trident
 cd trident
 pip install -e .
 ```
 
 ## Resources
 
- * The Trident project homepage: http://trident-project.org
-
- * Trident documentation: http://trident.readthedocs.org
-
- * For questions, comments, and announcements, please join our low-volume mailing list: https://groups.google.com/forum/#!forum/trident-project-users
+ * Trident documentation: http://foggie-trident.readthedocs.org

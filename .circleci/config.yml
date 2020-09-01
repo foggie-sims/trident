@@ -143,7 +143,7 @@ commands:
             fi
             if [ << parameters.coverage >> == 1 ]; then
                 # code coverage report
-                export COVERALLS_REPO_TOKEN="yUoFnf5H5uC9MJ9kLqzKaoSxkPf5dHc7F"
+                export COVERALLS_REPO_TOKEN="YqKi9UvAZbuZEO7mgaxBAH9ripJSnfQJ7"
                 coveralls
             fi
 
