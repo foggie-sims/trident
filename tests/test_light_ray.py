@@ -13,7 +13,7 @@ Unit test for the light_ray analysis module
 
 import numpy as np
 
-from yt.convenience import \
+from yt.loaders import \
     load
 from yt.testing import \
     assert_array_equal, \
@@ -55,7 +55,7 @@ class LightRayTest(TempDirTest):
         lr = LightRay(COSMO_PLUS, 'Enzo', 0.0, 0.03)
 
         lr.make_light_ray(seed=1234567,
-                          fields=['temperature', 'density', 'H_number_density'],
+                          fields=['temperature', 'density', 'H_p0_number_density'],
                           data_filename='lightray.h5')
 
         ds = load('lightray.h5')
@@ -71,7 +71,7 @@ class LightRayTest(TempDirTest):
         lr = LightRay(COSMO_PLUS, 'Enzo', 0.0, 0.03)
 
         lr.make_light_ray(seed=1234567, left_edge=left, right_edge=right,
-                          fields=['temperature', 'density', 'H_number_density'],
+                          fields=['temperature', 'density', 'H_p0_number_density'],
                           data_filename='lightray.h5')
 
         ds = load('lightray.h5')
@@ -84,7 +84,7 @@ class LightRayTest(TempDirTest):
         lr = LightRay(COSMO_PLUS, 'Enzo', 0.0, 0.03)
 
         lr.make_light_ray(seed=1234567, periodic=False,
-                          fields=['temperature', 'density', 'H_number_density'],
+                          fields=['temperature', 'density', 'H_p0_number_density'],
                           data_filename='lightray.h5')
 
         ds = load('lightray.h5')
@@ -99,7 +99,7 @@ class LightRayTest(TempDirTest):
         ray_start = [0,0,0]
         ray_end = [1,1,1]
         lr.make_light_ray(start_position=ray_start, end_position=ray_end,
-                          fields=['temperature', 'density', 'H_number_density'],
+                          fields=['temperature', 'density', 'H_p0_number_density'],
                           data_filename='lightray.h5')
 
         ds = load('lightray.h5')
@@ -126,7 +126,7 @@ class LightRayTest(TempDirTest):
         ray_start = [0,0,0]
         ray_end = [1,1,1]
         lr.make_light_ray(start_position=ray_start, end_position=ray_end,
-                          fields=['temperature', 'density', 'H_number_density'],
+                          fields=['temperature', 'density', 'H_p0_number_density'],
                           data_filename='lightray.h5')
 
         ds = load('lightray.h5')
