@@ -22,7 +22,7 @@ with open('README.md') as f:
 
 dev_requirements = [
     'coveralls', 'flake8', 'pytest>=3.6', 'pytest-cov', 'twine', 'wheel',
-    'sphinx', 'scipy', 'sphinx_rtd_theme', 'gitpython']
+    'sphinx', 'sphinx_rtd_theme', 'gitpython']
 
 setup(
     name = "trident",
@@ -62,6 +62,7 @@ setup(
         'matplotlib<3.3.0',
         'numpy!=1.14.0',
         'requests',
+        'scipy',
         'yt>=3.6.0',
         'yt_astro_analysis'],
       python_requires='>=3.6'
