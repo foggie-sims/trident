@@ -6,11 +6,12 @@
 
 This is the official trident version of the FOGGIE project.
 
-Trident is a Python package for creating synthetic absorption-line spectra
-from astrophysical hydrodynamics simulations.  It utilizes the yt package
-to read in simulation datasets and extends it to provide realistic
-synthetic observations appropriate for studies of the interstellar,
-circumgalactic, and intergalactic media.
+Trident is an open-source Python package for analyzing astrophysical
+hydrodynamics simulations of the interstellar, circumgalactic, and
+intergalactic media.  It can generate ionic abundances for all relevant ions
+to these studies based on collisional and photoionizational equilibrium.
+It also possesses infrastructure to create synthetic absorption-line spectra
+for making direct comparisons with observations.
 
 ## Installation
 
