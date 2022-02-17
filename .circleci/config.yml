@@ -178,7 +178,7 @@ executors:
         type: string
         default: latest
     docker:
-      - image: circleci/python:<< parameters.tag >>
+      - image: cimg/python:<< parameters.tag >>
 
 jobs:
   tests:
@@ -204,7 +204,7 @@ jobs:
 
       - restore_cache:
           name: "Restore dependencies cache."
-          key: python-<< parameters.tag >>-dependencies-v9
+          key: python-<< parameters.tag >>-dependencies-Zuverink
 
       - install-dependencies:
           yttag: << parameters.yttag >>
@@ -213,7 +213,7 @@ jobs:
 
       - save_cache:
           name: "Save dependencies cache."
-          key: python-<< parameters.tag >>-dependencies-v9
+          key: python-<< parameters.tag >>-dependencies-Zuverink
           paths:
             - ~/.cache/pip
             - ~/venv
@@ -224,13 +224,13 @@ jobs:
 
       - restore_cache:
           name: "Restore test data cache."
-          key: test-data-v2
+          key: test-data-Zuverink
 
       - download-test-data
 
       - save_cache:
           name: "Save test data cache."
-          key: test-data-v2
+          key: test-data-Zuverink
           paths:
             - ~/.trident
             - ~/answer_test_data
@@ -240,14 +240,14 @@ jobs:
 
       - restore_cache:
           name: "Restore answer tests cache."
-          key: test-results-<< parameters.tag >>-<< parameters.yttag >>-v10
+          key: test-results-<< parameters.tag >>-<< parameters.yttag >>-Zuverink
 
       - run-tests:
           generate: 1
 
       - save_cache:
           name: "Save answer tests cache."
-          key: test-results-<< parameters.tag >>-<< parameters.yttag >>-v10
+          key: test-results-<< parameters.tag >>-<< parameters.yttag >>-Zuverink
           paths:
             - ~/answer_test_data/test_results
 
@@ -273,14 +273,14 @@ jobs:
       - checkout
       - restore_cache:
           name: "Restore dependencies cache."
-          key: python-<< parameters.tag >>-dependencies-v9
+          key: python-<< parameters.tag >>-dependencies-Zuverink
       - set-env
       - install-dependencies:
           yttag: "YT_HEAD"
       - configure-trident
       - save_cache:
           name: "Save dependencies cache."
-          key: python-<< parameters.tag >>-dependencies-v9
+          key: python-<< parameters.tag >>-dependencies-Zuverink
           paths:
             - ~/.cache/pip
             - ~/venv
@@ -295,21 +295,21 @@ workflows:
      jobs:
        - tests:
            name: "Python 3.7 tests with yt gold"
-           tag: "3.7.9"
+           tag: "3.7.12"
 
        - tests:
            name: "Python 3.9 tests with yt gold"
-           tag: "3.9.2"
+           tag: "3.9.9"
 
        - tests:
            name: "Python 3.9 tests with yt tip"
-           tag: "3.9.2"
+           tag: "3.9.9"
            yttag: "YT_HEAD"
            coverage: 1
 
        - docs-test:
            name: "Test docs build"
-           tag: "3.9.2"
+           tag: "3.9.9"
 
    weekly:
      triggers:
@@ -318,24 +318,24 @@ workflows:
            filters:
             branches:
               only:
-                - master
+                - main
      jobs:
        - tests:
            name: "Python 3.7 tests with yt gold"
-           tag: "3.7.9"
+           tag: "3.7.12"
 
        - tests:
            name: "Python 3.8 tests with yt tip"
-           tag: "3.8.8"
+           tag: "3.8.12"
            yttag: "YT_HEAD"
            coverage: 0
 
        - tests:
            name: "Python 3.9 tests with yt tip"
-           tag: "3.9.2"
+           tag: "3.9.9"
            yttag: "YT_HEAD"
            coverage: 0
 
        - docs-test:
            name: "Test docs build"
-           tag: "3.9.2"
+           tag: "3.9.9"
