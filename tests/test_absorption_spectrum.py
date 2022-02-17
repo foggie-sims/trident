@@ -55,13 +55,15 @@ class AbsorptionSpectrumTest(TempDirTest):
         lr = LightRay(COSMO_PLUS, 'Enzo', 0.0, 0.03)
 
         lr.make_light_ray(seed=1234567,
-                          fields=['temperature', 'density', 'H_p0_number_density'],
+                          fields=[('gas', 'temperature'),
+                                  ('gas', 'density'),
+                                  ('gas', 'H_p0_number_density')],
                           data_filename='lightray.h5')
 
         sp = AbsorptionSpectrum(900.0, 1800.0, 10000)
 
         my_label = 'HI Lya'
-        field = 'H_p0_number_density'
+        field = ('gas', 'H_p0_number_density')
         wavelength = 1215.6700  # Angstromss
         f_value = 4.164E-01
         gamma = 6.265e+08
@@ -71,7 +73,7 @@ class AbsorptionSpectrumTest(TempDirTest):
                     gamma, mass, label_threshold=1.e10)
 
         my_label = 'HI Lya'
-        field = 'H_p0_number_density'
+        field = ('gas', 'H_p0_number_density')
         wavelength = 912.323660  # Angstroms
         normalization = 1.6e17
         index = 3.0
@@ -81,7 +83,7 @@ class AbsorptionSpectrumTest(TempDirTest):
         filename = "spectrum.h5"
         wavelength, flux = sp.make_spectrum('lightray.h5',
                                             output_file=filename,
-                                            line_list_file='lines.txt',
+                                            output_absorbers_file='lines.txt',
                                             use_peculiar_velocity=True)
         return filename
 
@@ -97,13 +99,15 @@ class AbsorptionSpectrumTest(TempDirTest):
         ray_start = [0,0,0]
         ray_end = [1,1,1]
         lr.make_light_ray(start_position=ray_start, end_position=ray_end,
-                          fields=['temperature', 'density', 'H_p0_number_density'],
+                          fields=[('gas', 'temperature'),
+                                  ('gas', 'density'),
+                                  ('gas', 'H_p0_number_density')],
                           data_filename='lightray.h5')
 
         sp = AbsorptionSpectrum(1200.0, 1300.0, 10001)
 
         my_label = 'HI Lya'
-        field = 'H_p0_number_density'
+        field = ('gas', 'H_p0_number_density')
         wavelength = 1215.6700  # Angstromss
         f_value = 4.164E-01
         gamma = 6.265e+08
@@ -115,7 +119,7 @@ class AbsorptionSpectrumTest(TempDirTest):
         filename = "spectrum.h5"
         wavelength, flux = sp.make_spectrum('lightray.h5',
                                             output_file=filename,
-                                            line_list_file='lines.txt',
+                                            output_absorbers_file='lines.txt',
                                             use_peculiar_velocity=True)
         return filename
 
@@ -131,13 +135,15 @@ class AbsorptionSpectrumTest(TempDirTest):
         ray_start = [0,0,0]
         ray_end = [1,1,1]
         lr.make_light_ray(start_position=ray_start, end_position=ray_end,
-                          fields=['temperature', 'density', 'H_p0_number_density'],
+                          fields=[('gas', 'temperature'),
+                                  ('gas', 'density'),
+                                  ('gas', 'H_p0_number_density')],
                           data_filename='lightray.h5', use_peculiar_velocity=False)
 
         sp = AbsorptionSpectrum(1200.0, 1300.0, 10001)
 
         my_label = 'HI Lya'
-        field = 'H_p0_number_density'
+        field = ('gas', 'H_p0_number_density')
         wavelength = 1215.6700  # Angstromss
         f_value = 4.164E-01
         gamma = 6.265e+08
@@ -149,7 +155,7 @@ class AbsorptionSpectrumTest(TempDirTest):
         filename = "spectrum.h5"
         wavelength, flux = sp.make_spectrum('lightray.h5',
                                             output_file=filename,
-                                            line_list_file='lines.txt',
+                                            output_absorbers_file='lines.txt',
                                             use_peculiar_velocity=False)
         return filename
 
@@ -165,11 +171,13 @@ class AbsorptionSpectrumTest(TempDirTest):
         ray_start = [0,0,0]
         ray_end = [1,1,1]
         lr.make_light_ray(start_position=ray_start, end_position=ray_end,
-                          fields=['temperature', 'density', 'H_p0_number_density'],
+                          fields=[('gas', 'temperature'),
+                                  ('gas', 'density'),
+                                  ('gas', 'H_p0_number_density')],
                           data_filename='lightray.h5')
 
         my_label = 'HI Lya'
-        field = 'H_p0_number_density'
+        field = ('gas', 'H_p0_number_density')
         wave = 1215.6700  # Angstromss
         f_value = 4.164E-01
         gamma = 6.265e+08
@@ -202,13 +210,15 @@ class AbsorptionSpectrumTest(TempDirTest):
         ray_start = [0,0,0]
         ray_end = [1,1,1]
         lr.make_light_ray(start_position=ray_start, end_position=ray_end,
-                          fields=['temperature', 'density', 'H_p0_number_density'],
+                          fields=[('gas', 'temperature'),
+                                  ('gas', 'density'),
+                                  ('gas', 'H_p0_number_density')],
                           data_filename='lightray.h5')
 
         sp = AbsorptionSpectrum(900.0, 1800.0, 10000)
 
         my_label = 'HI Lya'
-        field = 'H_p0_number_density'
+        field = ('gas', 'H_p0_number_density')
         wavelength = 1215.6700  # Angstromss
         f_value = 4.164E-01
         gamma = 6.265e+08
@@ -218,7 +228,7 @@ class AbsorptionSpectrumTest(TempDirTest):
                     gamma, mass, label_threshold=1.e10)
 
         my_label = 'HI Lya'
-        field = 'H_p0_number_density'
+        field = ('gas', 'H_p0_number_density')
         wavelength = 912.323660  # Angstroms
         normalization = 1.6e17
         index = 3.0
@@ -227,7 +237,7 @@ class AbsorptionSpectrumTest(TempDirTest):
 
         wavelength, flux = sp.make_spectrum('lightray.h5',
                                             output_file='spectrum.fits',
-                                            line_list_file='lines.txt',
+                                            output_absorbers_file='lines.txt',
                                             use_peculiar_velocity=True)
 
     @h5_answer_test(assert_array_rel_equal, decimals=12)
@@ -267,11 +277,11 @@ class AbsorptionSpectrumTest(TempDirTest):
         filename = "spectrum.h5"
         wavelength, flux = sp.make_spectrum('lightray.h5',
                                             output_file=filename,
-                                            line_list_file='lines.txt',
+                                            output_absorbers_file='lines.txt',
                                             use_peculiar_velocity=True)
         return filename
 
-    @h5_answer_test(assert_array_rel_equal, decimals=16)
+    @h5_answer_test(assert_array_rel_equal, decimals=15)
     def test_absorption_spectrum_non_cosmo_sph(self):
         """
         This test generates an absorption spectrum from a simple light ray on a
@@ -302,7 +312,7 @@ class AbsorptionSpectrumTest(TempDirTest):
         filename = "spectrum.h5"
         wavelength, flux = sp.make_spectrum('lightray.h5',
                                             output_file=filename,
-                                            line_list_file='lines.txt',
+                                            output_absorbers_file='lines.txt',
                                             use_peculiar_velocity=True)
         return filename
 
@@ -319,13 +329,15 @@ class AbsorptionSpectrumTest(TempDirTest):
         ray_start = ds.domain_left_edge
         ray_end = ds.domain_right_edge
         lr.make_light_ray(start_position=ray_start, end_position=ray_end,
-                          fields=['temperature', 'density', 'H_p0_number_density'],
+                          fields=[('gas', 'temperature'),
+                                  ('gas', 'density'),
+                                  ('gas', 'H_p0_number_density')],
                           data_filename='lightray.h5')
 
         sp = AbsorptionSpectrum(800.0, 1300.0, 5001)
 
         my_label = 'HI Lya'
-        field = 'H_p0_number_density'
+        field = ('gas', 'H_p0_number_density')
         wavelength = 1215.6700  # Angstromss
         f_value = 4.164E-01
         gamma = 6.265e+08
@@ -335,7 +347,7 @@ class AbsorptionSpectrumTest(TempDirTest):
                     gamma, mass, label_threshold=1.e10)
 
         my_label = 'Ly C'
-        field = 'H_p0_number_density'
+        field = ('gas', 'H_p0_number_density')
         wavelength = 912.323660  # Angstroms
         normalization = 1.6e17
         index = 3.0
@@ -345,7 +357,7 @@ class AbsorptionSpectrumTest(TempDirTest):
         filename = "spectrum.h5"
         wavelength, flux = sp.make_spectrum('lightray.h5',
                                             output_file=filename,
-                                            line_list_file='lines.txt',
+                                            output_absorbers_file='lines.txt',
                                             use_peculiar_velocity=True)
         return filename
 
@@ -367,7 +379,7 @@ class AbsorptionSpectrumTest(TempDirTest):
 
         HI_parameters = {
             'name': 'HI',
-            'field': 'H_p0_number_density',
+            'field': ('gas', 'H_p0_number_density'),
             'f': [.4164],
             'Gamma': [6.265E8],
             'wavelength': [1215.67],
@@ -418,5 +430,5 @@ class AbsorptionSpectrumTest(TempDirTest):
         wavelength, flux = sp.make_spectrum(
             'test_lightray.h5',
             output_file='test_spectrum.h5',
-            line_list_file='test_lines.txt',
+            output_absorbers_file='test_lines.txt',
             use_peculiar_velocity=True)
