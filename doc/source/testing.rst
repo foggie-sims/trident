@@ -17,7 +17,7 @@ Running the Test Suite
 ----------------------
 
 Running the test suite requires a version of Trident installed from
-source (see :ref:`install-dev`).
+source (see :ref:`installation`).
 
 The tests are run using the ``pytest`` Python module.  This can be
 installed with ``conda`` or ``pip``.
