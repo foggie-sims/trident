@@ -46,10 +46,10 @@ setup(
         "License :: OSI Approved :: BSD License",
         "Natural Language :: English",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Topic :: Scientific/Engineering :: Astronomy",
         "Topic :: Scientific/Engineering :: Physics",
         "Topic :: Scientific/Engineering :: Visualization",
@@ -60,11 +60,11 @@ setup(
     install_requires=[
         'astropy',
         'h5py',
-        'matplotlib<3.3.0',
+        'matplotlib',
         'numpy',
         'requests',
         'scipy',
         'yt>=4.0.1',
-        'yt_astro_analysis'],
-      python_requires='>=3.6'
+        'yt_astro_analysis>=1.1'],
+      python_requires='>=3.7'
 )
