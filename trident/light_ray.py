@@ -15,6 +15,8 @@ LightRay class and member functions.
 #-----------------------------------------------------------------------------
 
 import numpy as np
+from packaging import version
+from pkg_resources import get_distribution
 
 from yt_astro_analysis.cosmological_observation.cosmology_splice import \
     CosmologySplice
@@ -33,6 +35,9 @@ from yt.utilities.parallel_tools.parallel_analysis_interface import \
     parallel_root_only
 from yt.utilities.physical_constants import speed_of_light_cgs
 from yt.data_objects.static_output import Dataset
+
+need_hint = version.parse(get_distribution("yt").version) >= \
+  version.parse("4.1.dev0")
 
 class LightRay(CosmologySplice):
     r"""
@@ -722,7 +727,10 @@ class LightRay(CosmologySplice):
 
         if data_filename is not None:
             self._write_light_ray(data_filename, all_data)
-            ray_ds = load(data_filename, hint='YTDataLightRayDataset')
+            if need_hint:
+                ray_ds = load(data_filename, hint='YTDataLightRayDataset')
+            else:
+                ray_ds = load(data_filename)
 
             # temporary fix for yt-4.0 ytdata selection issue
             ray_ds.domain_left_edge = ray_ds.domain_left_edge.to('code_length')
