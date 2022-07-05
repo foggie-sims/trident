@@ -14,7 +14,8 @@ AbsorptionSpectrum class and member functions.
 # The full license is in the file LICENSE, distributed with this software.
 #-----------------------------------------------------------------------------
 
-from yt.utilities.on_demand_imports import _h5py as h5py
+from astropy.io import fits as pyfits
+import h5py
 import numpy as np
 
 from yt.data_objects.data_containers import \
@@ -24,7 +25,6 @@ from yt.data_objects.static_output import \
 from yt.loaders import load
 from yt.funcs import get_pbar, mylog
 from yt.units.yt_array import YTArray, YTQuantity
-from yt.utilities.on_demand_imports import _astropy
 from yt.utilities.parallel_tools.parallel_analysis_interface import \
     _get_comm, \
     parallel_objects, \
@@ -35,8 +35,6 @@ from yt.utilities.physical_constants import \
 
 from trident.absorption_spectrum.absorption_line import \
     tau_profile
-
-pyfits = _astropy.pyfits
 
 _bin_space_units = {'wavelength': 'angstrom',
                     'velocity': 'km/s'}
