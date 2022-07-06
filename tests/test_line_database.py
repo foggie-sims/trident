@@ -72,9 +72,9 @@ def test_select_lines_from_line_database():
 
 def test_parse_subset_from_line_database():
     ld = LineDatabase('lines.txt')
-    assert len(ld.parse_subset(['Al'])) == 3
+    assert len(ld.parse_subset(['Al'])) == 12
     ld = LineDatabase('lines.txt')
-    assert len(ld.parse_subset(['Mg II'])) == 2
+    assert len(ld.parse_subset(['Mg II'])) == 6
     ld = LineDatabase('lines.txt')
     assert len(ld.parse_subset(['O V 630'])) == 1
 
