@@ -799,7 +799,11 @@ def _ion_fraction_field(field, data):
                                              (ftype, "redshift"),
                                              (ftype, "log_T")],
                                             truncate=True)
-
+    
+    elif n_parameters == 4:
+        print("Hello, I am currently adding the capability for this to support 4 paramters, however its not yet ready.")
+        raise RuntimeError("This data file format is not supported.")
+    
     else:
         raise RuntimeError("This data file format is not supported.")
 
