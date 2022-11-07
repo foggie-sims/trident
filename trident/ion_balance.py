@@ -561,6 +561,7 @@ def add_ion_density_field(atom, ion, ds, ftype="gas",
         field += "_%s" % ionization_table.split(os.sep)[-1].split(".h5")[0]
 
     add_ion_number_density_field(atom, ion, ds, ftype, ionization_table,
+                                 field_suffix=field_suffix,
                                  sampling_type=sampling_type)
 
     _add_field(ds, ("gas", field), function=_ion_density,
