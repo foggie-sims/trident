@@ -803,8 +803,30 @@ def _ion_fraction_field(field, data):
     
     elif n_parameters == 4:
         print("Hello, I am currently adding the capability for this to support 4 paramters, however its not yet ready.")
-        raise RuntimeError("This data file format is not supported.")
+        print("The current thing we're doing is looking at the 4d table, then ignoring how metallicity changes and doing 3D interpolation.")
+        ionFraction = table_store[field_name]['fraction']
+        n_param = table_store[field_name]['parameters'][0]
+        z_param = table_store[field_name]['parameters'][1]
+        Z_param = table_store[field_name]['parameters'][2]  # might be too easily confused with z for redshift
+        t_param = table_store[field_name]['parameters'][3]
+        bds = [n_param.astype("=f8"), z_param.astype("=f8"),
+               Z_param.astype("=f8"), t_param.astype("=f8")]
+        # What I want it to look like when we have a Quad interpolator:
+        # interp = QuadrilinearFieldInterpolator(ionFraction, bds,
+        #                                        [(ftype, "log_nH"),
+        #                                         (ftype, "redshift"),
+        #                                         (ftype, "metallicity"),
+        #                                         (ftype, "log_T")],
+        #                                        truncate=True)
+
+        # Just while we're ignoring metallicity:
+        bds = [n_param.astype("=f8"), z_param.astype("=f8"), t_param.astype("=f8")]
     
+        interp = TrilinearFieldInterpolator(ionFraction[:, :, 10, :], bds,
+                                           [(ftype, "log_nH"),
+                                            (ftype, "redshift"),
+                                            (ftype, "log_T")],
+                                           truncate=True)
     else:
         raise RuntimeError("This data file format is not supported.")
 
