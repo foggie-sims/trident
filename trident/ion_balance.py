@@ -130,6 +130,13 @@ def _log_T(field, data):
     """
     return np.log10(data["gas", "temperature"])
 
+def _log_metallicity(field, data):
+    """
+    One index of ion balance table is in log of metallcity, so this translates
+    dataset's metallicity values into the same format for indexing the table
+    """
+    return np.log10(data["gas", "metallicity"].in_units("Zsun"))
+
 def add_ion_fields(ds, ions, ftype='gas',
                    ionization_table=None,
                    field_suffix=False,
@@ -362,6 +369,10 @@ def add_ion_fraction_field(atom, ion, ds, ftype="gas",
     if ("gas", "log_T") not in ds.derived_field_list:
         _add_field(ds, ("gas", "log_T"), function=_log_T, units="",
                    sampling_type=sampling_type)
+
+    if ("gas", "log_metallicity") not in ds.derived_field_list:
+        _add_field(ds, ("gas", "log_metallicity"), function=_log_metallicity,
+                   units="", sampling_type=sampling_type)
 
     atom = atom.capitalize()
 
@@ -806,18 +817,18 @@ def _ion_fraction_field(field, data):
         ionFraction = table_store[field_name]['fraction']
         n_param = table_store[field_name]['parameters'][0]
         z_param = table_store[field_name]['parameters'][1]
-        Z_param = table_store[field_name]['parameters'][2]  # might be too easily confused with z for redshift
+        Z_param = table_store[field_name]['parameters'][2]
         t_param = table_store[field_name]['parameters'][3]
+
         bds = [n_param.astype("=f8"), z_param.astype("=f8"),
                Z_param.astype("=f8"), t_param.astype("=f8")]
 
         interp = QuadrilinearFieldInterpolator(ionFraction, bds,
                                                [(ftype, "log_nH"),
                                                 (ftype, "redshift"),
-                                                (ftype, "metallicity"),
+                                                (ftype, "log_metallicity"),
                                                 (ftype, "log_T")],
                                                truncate=True)
-
     else:
         raise RuntimeError("This data file format is not supported.")
 
