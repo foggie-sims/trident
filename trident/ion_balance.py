@@ -34,10 +34,11 @@ from trident.roman import \
 H_mass_fraction = 0.76
 to_nH = H_mass_fraction / mh
 
-# set fractions to 0 for values lower than 1e-9,
+# Originally set fractions to 0 for values lower than 1e-9,
 # which is what is used in Sutherland & Dopita (1993).
-fraction_zero_point = 1.e-9
-zero_out_value = -30.
+# Updated to both be 1e-6 for using metallicity dependant table.
+fraction_zero_point = 1e-6  #Originally 1.e-9
+zero_out_value = -6  # Originally -30.
 
 table_store = {}
 
@@ -812,7 +813,7 @@ def _ion_fraction_field(field, data):
                                              (ftype, "redshift"),
                                              (ftype, "log_T")],
                                             truncate=True)
-    
+
     elif n_parameters == 4:
         ionFraction = table_store[field_name]['fraction']
         n_param = table_store[field_name]['parameters'][0]
@@ -838,7 +839,7 @@ def _ion_fraction_field(field, data):
         greater_than = fraction > 1.0
         mylog.warning("%s > 1 was calculated. Capping values at 1." % field_name)
         mylog.warning("%d offenders: median = %f; maximum = %f" % (len(fraction[greater_than]), np.median(fraction[greater_than]), np.max(fraction[greater_than])))
-        fraction = np.clip(fraction, 0.0, 1.0)
+
     return fraction
 
 def _internal_ion_fraction_field(field, data):
