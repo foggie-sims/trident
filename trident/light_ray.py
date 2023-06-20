@@ -24,8 +24,6 @@ from yt.loaders import \
     load
 from yt.frontends.ytdata.utilities import \
     save_as_dataset
-from yt.frontends.ytdata.data_structures import \
-    YTDataLightRayDataset
 from yt.units.yt_array import \
     YTArray
 from yt.utilities.cosmology import \
