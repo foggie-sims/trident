@@ -47,6 +47,7 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Topic :: Scientific/Engineering :: Astronomy",
         "Topic :: Scientific/Engineering :: Physics",
         "Topic :: Scientific/Engineering :: Visualization",
@@ -61,7 +62,7 @@ setup(
         'numpy',
         'requests',
         'scipy',
-        'yt>=4.0.1',
-        'yt_astro_analysis>=1.1.0'],
+        'yt>=4.0.2',
+        'yt_astro_analysis>=1.1'],
       python_requires='>=3.7'
 )

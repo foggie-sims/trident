@@ -11,6 +11,9 @@ SpectrumGenerator class and member functions.
 # The full license is in the file LICENSE, distributed with this software.
 #-----------------------------------------------------------------------------
 
+from astropy.convolution import convolve
+from astropy.io import fits as pyfits
+import h5py
 import numpy as np
 import os
 
@@ -45,9 +48,6 @@ from trident.plotting import \
     plot_spectrum
 from trident.config import \
     trident_path
-from yt.utilities.on_demand_imports import \
-    _h5py, \
-    _astropy
 
 # Valid instruments
 valid_instruments = \
@@ -745,7 +745,6 @@ class SpectrumGenerator(AbsorptionSpectrum):
         else:
             mylog.info("Applying specified line spread function.")
             lsf = LSF(function=function, width=width, filename=filename)
-        from astropy.convolution import convolve
         self.flux_field = convolve(self.flux_field, lsf.kernel)
 
         # Negative fluxes don't make sense, so clip
@@ -1102,12 +1101,11 @@ def load_spectrum(filename, format='auto', instrument=None, lsf_kernel=None,
         else:
             format = 'ascii'
     if format == 'hdf5':
-        f = _h5py.File(filename, 'r')
+        f = h5py.File(filename, 'r')
         lambda_field = f['wavelength'][()]
         flux_field = f['flux'][()]
         tau_field = f['tau'][()]
     elif format == 'fits':
-        pyfits = _astropy.pyfits
         hdulist = pyfits.open(filename)
         data = hdulist[1].data
         lambda_field = data['wavelength']

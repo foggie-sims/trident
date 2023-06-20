@@ -43,11 +43,6 @@ ISO_GALAXY = os.path.join(answer_test_data_dir,
 FIRE = os.path.join(answer_test_data_dir,
                     "FIRE_M12i_ref11/snapshot_600.hdf5")
 
-def test_voigt_profiles():
-    a = 1.7e-4
-    x = np.linspace(5.0, -3.6, 60)
-    voigt(a, x), 1e-8
-
 class AbsorptionSpectrumTest(TempDirTest):
 
     @h5_answer_test(assert_array_rel_equal, decimals=13)
