@@ -675,7 +675,7 @@ class AbsorptionSpectrum(object):
                               continuum['index']) * \
                     (column_density[lixel] / continuum['normalization'])
                 self.tau_field[left_index[lixel]:right_index[lixel]] += cont_tau.d
-                pbar.update(i)
+                pbar.update()
             pbar.finish()
 
     def _add_lines_to_spectrum(self, field_data, use_peculiar_velocity,
@@ -812,7 +812,7 @@ class AbsorptionSpectrum(object):
                 # if there is a ray element with temperature = 0 or column
                 # density = 0, skip it
                 if (thermal_b[i] == 0.) or (cdens[i] == 0.):
-                    pbar.update(i)
+                    pbar.update()
                     continue
 
                 # the virtual window into which the line is deposited initially
@@ -913,7 +913,7 @@ class AbsorptionSpectrum(object):
                     window_width_in_bins *= 2
 
                 if center_index is None:
-                    pbar.update(i)
+                    pbar.update()
                     continue
 
                 # Numerically integrate the virtual bins to calculate a
@@ -939,7 +939,7 @@ class AbsorptionSpectrum(object):
                 # all then skip the deposition
                 if ((left_index >= self.lambda_field.size) or \
                     (right_index < 0)):
-                    pbar.update(i)
+                    pbar.update()
                     continue
 
                 # otherwise, determine how much of the original spectrum
@@ -973,7 +973,7 @@ class AbsorptionSpectrum(object):
                                                 'redshift': redshift[i],
                                                 'redshift_eff': redshift_eff[i],
                                                 'v_pec': peculiar_velocity})
-                pbar.update(i)
+                pbar.update()
             pbar.finish()
 
             # Expand the tau_field array to match the updated wavelength

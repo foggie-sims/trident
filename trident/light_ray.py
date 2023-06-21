@@ -33,8 +33,10 @@ from yt.utilities.logger import \
 from yt.utilities.parallel_tools.parallel_analysis_interface import \
     parallel_objects, \
     parallel_root_only
-from yt.utilities.physical_constants import speed_of_light_cgs
-from yt.data_objects.static_output import Dataset
+from yt.utilities.physical_constants import \
+    speed_of_light_cgs
+from yt.data_objects.static_output import \
+    Dataset
 
 need_hint = version.parse(get_distribution("yt").version) >= \
   version.parse("4.1.dev0")
