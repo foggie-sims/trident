@@ -14,9 +14,14 @@ Ion fraction fields using Cloudy data.
 from yt.fields.field_detector import \
     FieldDetector
 from yt.utilities.linear_interpolators import \
-    QuadrilinearFieldInterpolator, \
-    TrilinearFieldInterpolator, \
-    UnilinearFieldInterpolator
+    UnilinearFieldInterpolator, \
+    TrilinearFieldInterpolator
+
+try:
+    from yt.utilities.linear_interpolators import QuadrilinearFieldInterpolator
+except ImportError:
+    QuadrilinearFieldInterpolator = None
+
 from yt.utilities.physical_constants import mh
 from yt.funcs import mylog
 import numpy as np
@@ -822,6 +827,12 @@ def _ion_fraction_field(field, data):
                                             truncate=True)
 
     elif n_parameters == 4:
+        if QuadrilinearFieldInterpolator is None:
+            raise RuntimeError(
+                "This version of yt does not have the QuadrilinearFieldInterpolator. "
+                "Please update to the latest version of yt. This may require installing yt "
+                "from source.")
+
         ionFraction = table_store[field_name]['fraction']
         n_param = table_store[field_name]['parameters'][0]
         z_param = table_store[field_name]['parameters'][1]
