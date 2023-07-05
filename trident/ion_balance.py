@@ -839,7 +839,7 @@ def _ion_fraction_field(field, data):
         greater_than = fraction > 1.0
         mylog.warning("%s > 1 was calculated. Capping values at 1." % field_name)
         mylog.warning("%d offenders: median = %f; maximum = %f" % (len(fraction[greater_than]), np.median(fraction[greater_than]), np.max(fraction[greater_than])))
-
+        fraction = np.clip(fraction, 0.0, 1.0)
     return fraction
 
 def _internal_ion_fraction_field(field, data):
