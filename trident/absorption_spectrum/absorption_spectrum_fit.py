@@ -1,5 +1,6 @@
-from yt.utilities.on_demand_imports import _h5py as h5py
+import h5py
 import numpy as np
+from scipy import optimize
 
 from trident.absorption_spectrum.absorption_line import \
     voigt
@@ -7,10 +8,6 @@ from yt.funcs import \
     mylog
 from yt.units.yt_array import \
     YTArray
-from yt.utilities.on_demand_imports import \
-    _scipy
-
-optimize = _scipy.optimize
 
 def generate_total_fit(x, fluxData, orderFits, speciesDicts,
         minError=1E-4, complexLim=.995,

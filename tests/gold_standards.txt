@@ -1,0 +1,4 @@
+# This is a record of gold standard versions since switching from a
+# tag to a changeset.
+July 5, 2023: 61f5b11d471d242cc07135962a1386e56a19e3fd
+July 5, 2023: c4f81ab9edfb87c2c63f04fe707134955522dd27

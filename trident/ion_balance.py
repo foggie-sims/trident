@@ -14,8 +14,14 @@ Ion fraction fields using Cloudy data.
 from yt.fields.field_detector import \
     FieldDetector
 from yt.utilities.linear_interpolators import \
-    TrilinearFieldInterpolator, \
-    UnilinearFieldInterpolator
+    UnilinearFieldInterpolator, \
+    TrilinearFieldInterpolator
+
+try:
+    from yt.utilities.linear_interpolators import QuadrilinearFieldInterpolator
+except ImportError:
+    QuadrilinearFieldInterpolator = None
+
 from yt.utilities.physical_constants import mh
 from yt.funcs import mylog
 import numpy as np
@@ -33,10 +39,11 @@ from trident.roman import \
 H_mass_fraction = 0.76
 to_nH = H_mass_fraction / mh
 
-# set fractions to 0 for values lower than 1e-9,
+# Originally set fractions to 0 for values lower than 1e-9,
 # which is what is used in Sutherland & Dopita (1993).
-fraction_zero_point = 1.e-9
-zero_out_value = -30.
+# Updated to both be 1e-6 for using metallicity dependant table.
+fraction_zero_point = 1e-6  #Originally 1.e-9
+zero_out_value = -6  # Originally -30.
 
 table_store = {}
 
@@ -362,6 +369,24 @@ def add_ion_fraction_field(atom, ion, ds, ftype="gas",
         _add_field(ds, ("gas", "log_T"), function=_log_T, units="",
                    sampling_type=sampling_type)
 
+    if ("gas", f"{atom}_metallicity") in ds.derived_field_list:
+        fieldname = f"{atom}_metallicity"
+    else:
+        fieldname = "metallicity"
+    lfieldname = f"log_{fieldname}"
+
+    if ("gas", lfieldname) not in ds.derived_field_list:
+
+        def _log_metallicity(field, data):
+            """
+            One index of ion balance table is in log of metallcity, so this translates
+            dataset's metallicity values into the same format for indexing the table
+            """
+            return np.log10(data["gas", fieldname].in_units("Zsun"))
+
+        _add_field(ds, ("gas", lfieldname), function=_log_metallicity,
+                   units="", sampling_type=sampling_type)
+
     atom = atom.capitalize()
 
     field = "%s_p%d_ion_fraction" % (atom, ion-1)
@@ -561,6 +586,7 @@ def add_ion_density_field(atom, ion, ds, ftype="gas",
         field += "_%s" % ionization_table.split(os.sep)[-1].split(".h5")[0]
 
     add_ion_number_density_field(atom, ion, ds, ftype, ionization_table,
+                                 field_suffix=field_suffix,
                                  sampling_type=sampling_type)
 
     _add_field(ds, ("gas", field), function=_ion_density,
@@ -800,6 +826,28 @@ def _ion_fraction_field(field, data):
                                              (ftype, "log_T")],
                                             truncate=True)
 
+    elif n_parameters == 4:
+        if QuadrilinearFieldInterpolator is None:
+            raise RuntimeError(
+                "This version of yt does not have the QuadrilinearFieldInterpolator. "
+                "Please update to the latest version of yt. This may require installing yt "
+                "from source.")
+
+        ionFraction = table_store[field_name]['fraction']
+        n_param = table_store[field_name]['parameters'][0]
+        z_param = table_store[field_name]['parameters'][1]
+        Z_param = table_store[field_name]['parameters'][2]
+        t_param = table_store[field_name]['parameters'][3]
+
+        bds = [n_param.astype("=f8"), z_param.astype("=f8"),
+               Z_param.astype("=f8"), t_param.astype("=f8")]
+
+        interp = QuadrilinearFieldInterpolator(ionFraction, bds,
+                                               [(ftype, "log_nH"),
+                                                (ftype, "redshift"),
+                                                (ftype, "log_metallicity"),
+                                                (ftype, "log_T")],
+                                               truncate=True)
     else:
         raise RuntimeError("This data file format is not supported.")
 
