@@ -11,9 +11,9 @@ commands:
             echo 'TRIDENT_ION_DATA=$HOME/.trident' >> $BASH_ENV
             echo 'TRIDENT_ANSWER_DATA=$HOME/answer_test_data' >> $BASH_ENV
             echo 'TRIDENT_CONFIG=$HOME/.trident/config.tri' >> $BASH_ENV
-            echo 'YT_GOLD=785befaaf016c6ce5238366092b3942b8d8c6760' >> $BASH_ENV
+            echo 'YT_GOLD=yt-4.2.0' >> $BASH_ENV
             echo 'YT_HEAD=main' >> $BASH_ENV
-            echo 'TRIDENT_GOLD=c4f81ab9edfb87c2c63f04fe707134955522dd27' >> $BASH_ENV
+            echo 'TRIDENT_GOLD=8692ae84d8f586101ee3f3f2bb2fec7678743bbc' >> $BASH_ENV
             echo 'TRIDENT_HEAD=tip' >> $BASH_ENV
 
   install-dependencies:
@@ -204,7 +204,7 @@ jobs:
 
       - restore_cache:
           name: "Restore dependencies cache."
-          key: python-<< parameters.tag >>-dependencies-Zuverink
+          key: python-<< parameters.tag >>-dependencies-Zoldak
 
       - install-dependencies:
           yttag: << parameters.yttag >>
@@ -213,7 +213,7 @@ jobs:
 
       - save_cache:
           name: "Save dependencies cache."
-          key: python-<< parameters.tag >>-dependencies-Zuverink
+          key: python-<< parameters.tag >>-dependencies-Zoldak
           paths:
             - ~/.cache/pip
             - ~/venv
@@ -240,14 +240,14 @@ jobs:
 
       - restore_cache:
           name: "Restore answer tests cache."
-          key: test-results-<< parameters.tag >>-<< parameters.yttag >>-Zoldak
+          key: test-results-<< parameters.tag >>-<< parameters.yttag >>-Zimmermann
 
       - run-tests:
           generate: 1
 
       - save_cache:
           name: "Save answer tests cache."
-          key: test-results-<< parameters.tag >>-<< parameters.yttag >>-Zoldak
+          key: test-results-<< parameters.tag >>-<< parameters.yttag >>-Zimmermann
           paths:
             - ~/answer_test_data/test_results
 
@@ -273,14 +273,14 @@ jobs:
       - checkout
       - restore_cache:
           name: "Restore dependencies cache."
-          key: python-<< parameters.tag >>-dependencies-Zuverink
+          key: python-<< parameters.tag >>-dependencies-Zoldak
       - set-env
       - install-dependencies:
           yttag: "YT_HEAD"
       - configure-trident
       - save_cache:
           name: "Save dependencies cache."
-          key: python-<< parameters.tag >>-dependencies-Zuverink
+          key: python-<< parameters.tag >>-dependencies-Zoldak
           paths:
             - ~/.cache/pip
             - ~/venv
