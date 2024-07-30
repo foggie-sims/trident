@@ -17,7 +17,7 @@ Running the Test Suite
 ----------------------
 
 Running the test suite requires a version of Trident installed from
-source (see :ref:`install-dev`).
+source (see :ref:`installation`).
 
 The tests are run using the ``pytest`` Python module.  This can be
 installed with ``conda`` or ``pip``.
@@ -29,7 +29,7 @@ installed with ``conda`` or ``pip``.
 The test suite requires a number of datasets for testing functionality.
 Trident comes with a helper script that will download all the datasets and
 untar them.  Before running this, make sure you have the
-``answer_test_data_dir`` variable set in your config file (see :ref:`step-3`).
+``answer_test_data_dir`` variable set in your config file (see :ref:`manual-config`).
 This variable should point to a directory where these datasets will be stored.
 The helper script is located in the ``tests`` directory of the Trident source.
 
