@@ -364,16 +364,20 @@ class SpectrumGenerator(AbsorptionSpectrum):
         if isinstance(ray, str):
             ray = load(ray)
         if isinstance(ray, Dataset):
+            # temporary fix for yt-4.0 ytdata selection issue
+            # This needs to be here because altering edges after
+            # creating data containers is bad.
+            # If the input is already a data container, there is nothing
+            # we can do but trust the dataset is in a good state.
+            ray.domain_left_edge = ray.domain_left_edge.to('code_length')
+            ray.domain_right_edge = ray.domain_right_edge.to('code_length')
+
             ad = ray.all_data()
         elif isinstance(ray, YTDataContainer):
             ad = ray
             ray = ad.ds
         else:
             raise RuntimeError("Unrecognized ray type.")
-
-        # temporary fix for yt-4.0 ytdata selection issue
-        ray.domain_left_edge = ray.domain_left_edge.to('code_length')
-        ray.domain_right_edge = ray.domain_right_edge.to('code_length')
 
         # Clear out any previous spectrum that existed first
         self.clear_spectrum()

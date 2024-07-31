@@ -14,9 +14,9 @@ LightRay class and member functions.
 # The full license is in the file LICENSE, distributed with this software.
 #-----------------------------------------------------------------------------
 
+from importlib import metadata
 import numpy as np
 from packaging import version
-from pkg_resources import get_distribution
 
 from yt_astro_analysis.cosmological_observation.cosmology_splice import \
     CosmologySplice
@@ -38,7 +38,7 @@ from yt.utilities.physical_constants import \
 from yt.data_objects.static_output import \
     Dataset
 
-need_hint = version.parse(get_distribution("yt").version) >= \
+need_hint = version.parse(metadata.version("yt")) >= \
   version.parse("4.1.dev0")
 
 class LightRay(CosmologySplice):
