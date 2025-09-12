@@ -57,10 +57,8 @@ Tracker = "https://github.com/trident-project/trident/issues"
 
 [project.optional-dependencies]
 dev = [
-    "coveralls",
     "flake8",
     "gitpython",
-    "pytest-cov",
     "pytest>=3.6",
     "sphinx",
     "sphinx_rtd_theme",

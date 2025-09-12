@@ -150,12 +150,7 @@ commands:
             export TRIDENT_GENERATE_TEST_RESULTS=<< parameters.generate >>
             if [[ << parameters.generate >> == 0 || ! -f $TRIDENT_ANSWER_DATA/test_results/TRIDENT_VERSION ]]; then
                 pushd tests
-                pytest --cov=trident
-            fi
-            if [ << parameters.coverage >> == 1 ]; then
-                # code coverage report
-                export COVERALLS_REPO_TOKEN="YqKi9UvAZbuZEO7mgaxBAH9ripJSnfQJ7"
-                coveralls
+                pytest
             fi
 
   build-docs:
