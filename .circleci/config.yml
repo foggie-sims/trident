@@ -11,7 +11,7 @@ commands:
             echo 'TRIDENT_ION_DATA=$HOME/.trident' >> $BASH_ENV
             echo 'TRIDENT_ANSWER_DATA=$HOME/answer_test_data' >> $BASH_ENV
             echo 'TRIDENT_CONFIG=$HOME/.trident/config.tri' >> $BASH_ENV
-            echo 'YT_GOLD=yt-4.2.0' >> $BASH_ENV
+            echo 'YT_GOLD=yt-4.4.0' >> $BASH_ENV
             echo 'YT_HEAD=main' >> $BASH_ENV
             echo 'TRIDENT_GOLD=8692ae84d8f586101ee3f3f2bb2fec7678743bbc' >> $BASH_ENV
             echo 'TRIDENT_HEAD=tip' >> $BASH_ENV
