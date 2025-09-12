@@ -312,7 +312,7 @@ workflows:
            coverage: 0
 
        - tests:
-           name: "Python 3.10 tests with yt tip"
+           name: "Python 3.13 tests with yt tip"
            tag: "3.13.7"
            yttag: "YT_GOLD"
            coverage: 0
