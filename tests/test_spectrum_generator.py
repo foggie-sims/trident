@@ -126,7 +126,8 @@ def test_input_types():
     ray_start = ds.domain_left_edge
     ray_end = ds.domain_right_edge
     filename = os.path.join(dirpath, 'ray.h5')
-    ray = make_simple_ray(ds, start_position=ray_start, end_position=ray_end, data_filename=filename)
+    ray = make_simple_ray(ds, start_position=ray_start, end_position=ray_end,
+                          lines=['H I'], data_filename=filename)
 
     sg = SpectrumGenerator(lambda_min=1200, lambda_max=1300, dlambda=0.5)
     spectra = []
