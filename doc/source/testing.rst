@@ -5,7 +5,7 @@ Testing
 
 We maintain a series of tests in Trident to make sure the code gives consistent
 results and to catch accidental breakages in our source code and dependencies.
-These tests are run by `Travis <https://travis-ci.org/>`_ automatically and
+These tests are run by `CircleCI <https://circleci.com/>`_ automatically and
 regularly to assure consistency in functionality, but you can run them locally
 too (see below).  The tests consist of a mix of unit tests (tests to assure Trident
 functions don't actively fail) and answer tests (tests comparing newly
@@ -135,10 +135,15 @@ The Tests Failed -- What Do I Do?
 ---------------------------------
 
 If the tests have failed (either locally, or through the automatically generated
-test from Travis), you want to figure out what caused the breakage.  It was
+test from CircleCI), you want to figure out what caused the breakage.  It was
 either a change in trident or a change in one of Trident's dependencies
 (e.g., yt).  So first examine the output from `py.test` to see if you can
-deduce what went wrong.
+deduce what went wrong.  You can also use the pdb flag with py.test to help
+your investigation:
+
+.. code-block:: bash
+
+   $ pytest --pdb test_pipelines
 
 Sometimes it isn't obvious what caused the break,
 in which case you may need to use `git bisect` to track down the change, either
@@ -163,8 +168,8 @@ tests to fail.  The first thing to do
 is to identify the most accurate version of the code (e.g., changesets for
 yt and trident that give the desired behavior).  Tag the Trident changeset with
 the next gold standard iteration.  You can see the current iteration by looking
-in the ``.travis.yml`` file at the ``TRIDENT_GOLD`` entry--increment this and
-tag the changeset.  Update the ``.travis.yml`` file so that the ``YT_GOLD`` and
+in the ``.circleci/config.yml`` file at the ``TRIDENT_GOLD`` entry--increment this and
+tag the changeset.  Update the ``config.yml`` file so that the ``YT_GOLD`` and
 ``TRIDENT_GOLD`` entries point to your desired changeset and tag.  You have to
 explicitly push the new tag (hereafter ``test-standard-v3``) to your repository
 (here: ``origin``.  Issue a pull request.
@@ -172,9 +177,9 @@ explicitly push the new tag (hereafter ``test-standard-v3``) to your repository
 .. code-block:: bash
 
    $ git tag test-standard-v3 <trident-changeset>
-   $ ... edit .travis.yml files to update YT_GOLD=<yt changeset>
+   $ ... edit .circleci/config.yml files to update YT_GOLD=<yt changeset>
    $ ... and TRIDENT_GOLD=test-standard-v3
-   $ git add .travis.yml
+   $ git add .circleci/config.yml
    $ git commit
    $ git push origin test-standard-v3
    $ <MAKE PULL REQUEST>
@@ -187,6 +192,6 @@ tag.
 
    $ git push upstream test-standard-v3
 
-Lastly, that person will have to also
-clear Travis' cache, so that it regenerates new answer test results.  This can
-be done manually here: https://travis-ci.org/trident-project/trident/caches .
+Afterwards, you may need to clear the caches for CircleCI by enumerating saved
+and restored cache names in the `.circleci/config.yml` file.  See:
+https://circleci.com/docs/caching/#clearing-cache

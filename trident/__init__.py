@@ -15,7 +15,7 @@ http://yt-project.org
 # The full license is in the file LICENSE, distributed with this software.
 #-----------------------------------------------------------------------------
 
-__version__ = "1.3.dev0"
+__version__ = "1.5.dev0"
 
 # Must run import_check() before anything else is imported to avoid
 # astropy error when importing trident in trident package directory
@@ -36,7 +36,8 @@ from trident.ion_balance import \
     add_ion_density_field, \
     add_ion_mass_field, \
     solar_abundance, \
-    atomic_mass
+    atomic_mass, \
+    calculate_ion_fraction
 
 from trident.instrument import \
     Instrument

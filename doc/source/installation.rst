@@ -24,7 +24,7 @@ You can see if conda is already installed by running:
 
    $ conda -h
 
-If conda is installed, move to the next step.  Otherwise install Mini-conda.
+If conda is installed, move to the next step.  Otherwise install `Miniconda`.
 
 Use the appropriate conda install script for your architecture.  We recommend
 getting the latest version of conda for Python3 for your architecture here:
@@ -70,10 +70,6 @@ is not required, but can be done with either ``conda`` or ``pip``.
 .. code-block:: bash
 
    $ conda install mpi4py
-
-.. code-block:: bash
-
-   $ pip install mpi4py
 
 Updating Your FOGGIE-Trident Installation
 -----------------------------------------

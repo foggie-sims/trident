@@ -11,7 +11,7 @@ commands:
             echo 'TRIDENT_ION_DATA=$HOME/.trident' >> $BASH_ENV
             echo 'TRIDENT_ANSWER_DATA=$HOME/answer_test_data' >> $BASH_ENV
             echo 'TRIDENT_CONFIG=$HOME/.trident/config.tri' >> $BASH_ENV
-            echo 'YT_GOLD=yt-4.2.0' >> $BASH_ENV
+            echo 'YT_GOLD=yt-4.4.0' >> $BASH_ENV
             echo 'YT_HEAD=main' >> $BASH_ENV
             echo 'TRIDENT_GOLD=8692ae84d8f586101ee3f3f2bb2fec7678743bbc' >> $BASH_ENV
             echo 'TRIDENT_HEAD=tip' >> $BASH_ENV
@@ -150,12 +150,7 @@ commands:
             export TRIDENT_GENERATE_TEST_RESULTS=<< parameters.generate >>
             if [[ << parameters.generate >> == 0 || ! -f $TRIDENT_ANSWER_DATA/test_results/TRIDENT_VERSION ]]; then
                 pushd tests
-                pytest --cov=trident
-            fi
-            if [ << parameters.coverage >> == 1 ]; then
-                # code coverage report
-                export COVERALLS_REPO_TOKEN="YqKi9UvAZbuZEO7mgaxBAH9ripJSnfQJ7"
-                coveralls
+                pytest
             fi
 
   build-docs:
@@ -294,28 +289,32 @@ workflows:
    normal-tests:
      jobs:
        - tests:
-           name: "Python 3.9 tests with yt tip"
-           tag: "3.9.13"
+           name: "Python 3.10 tests with yt tip"
+           tag: "3.10.17"
            yttag: "YT_HEAD"
+           coverage: 0
 
        - tests:
            name: "Python 3.10 tests with yt tip"
-           tag: "3.10.13"
-           yttag: "YT_HEAD"
-           coverage: 1
+           tag: "3.10.17"
+           yttag: "YT_GOLD"
+           coverage: 0
 
        - tests:
-           name: "Python 3.11 tests with yt tip"
-           tag: "3.11.4"
+           name: "Python 3.13 tests with yt tip"
+           tag: "3.13.7"
            yttag: "YT_HEAD"
+           coverage: 0
 
        - tests:
-           name: "Python 3.11 tests with yt gold"
-           tag: "3.11.4"
+           name: "Python 3.13 tests with yt tip"
+           tag: "3.13.7"
+           yttag: "YT_GOLD"
+           coverage: 0
 
        - docs-test:
            name: "Test docs build"
-           tag: "3.11.4"
+           tag: "3.13.7"
 
    weekly:
      triggers:
@@ -327,21 +326,17 @@ workflows:
                 - main
      jobs:
        - tests:
-           name: "Python 3.9 tests with yt gold"
-           tag: "3.9.13"
-
-       - tests:
-           name: "Python 3.9 tests with yt tip"
-           tag: "3.9.13"
+           name: "Python 3.10 tests with yt tip"
+           tag: "3.10.17"
            yttag: "YT_HEAD"
            coverage: 0
 
        - tests:
-           name: "Python 3.11 tests with yt tip"
-           tag: "3.11.4"
+           name: "Python 3.13 tests with yt tip"
+           tag: "3.13.7"
            yttag: "YT_HEAD"
            coverage: 0
 
        - docs-test:
            name: "Test docs build"
-           tag: "3.11.4"
+           tag: "3.13.7"

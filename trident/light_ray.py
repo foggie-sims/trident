@@ -37,6 +37,7 @@ from yt.utilities.physical_constants import \
     speed_of_light_cgs
 from yt.data_objects.static_output import \
     Dataset
+from yt.frontends.ytdata.data_structures import YTDataLightRayDataset
 
 need_hint = version.parse(metadata.version("yt")) >= \
   version.parse("4.1.dev0")
@@ -318,7 +319,8 @@ class LightRay(CosmologySplice):
                        fields=None, setup_function=None,
                        solution_filename=None, data_filename=None,
                        get_los_velocity=None, use_peculiar_velocity=True,
-                       redshift=None, field_parameters=None, njobs=-1):
+                       redshift=None, field_parameters=None,
+                       fail_empty=True, njobs=-1):
         """
         Actually generate the LightRay by traversing the desired dataset.
 
@@ -424,11 +426,19 @@ class LightRay(CosmologySplice):
             Default: None.
 
         :field_parameters: optional, dict
+
             Used to set field parameters in light rays. For example,
             if the 'bulk_velocity' field parameter is set, the relative
             velocities used to calculate peculiar velocity will be adjusted
             accordingly.
             Default: None.
+
+        :fail_empty: optional, bool
+
+            If True, Trident will fail when it tries to create an empty Ray
+            that does not pass through any valud fluid elements. When
+            False, it will merely return a warning.
+            Default: True
 
         :njobs: optional, int
 
@@ -728,11 +738,13 @@ class LightRay(CosmologySplice):
         self._data = all_data
 
         if data_filename is not None:
-            self._write_light_ray(data_filename, all_data)
+            self._write_light_ray(data_filename, all_data,
+                                  fail_empty=fail_empty)
             if need_hint:
                 ray_ds = load(data_filename, hint='YTDataLightRayDataset')
             else:
                 ray_ds = load(data_filename)
+            ray_ds = YTDataLightRayDataset(data_filename)
 
             # temporary fix for yt-4.0 ytdata selection issue
             ray_ds.domain_left_edge = ray_ds.domain_left_edge.to('code_length')
@@ -746,7 +758,7 @@ class LightRay(CosmologySplice):
         return self._data[field]
 
     @parallel_root_only
-    def _write_light_ray(self, filename, data):
+    def _write_light_ray(self, filename, data, fail_empty=True):
         """
         _write_light_ray(filename, data)
 
@@ -803,9 +815,13 @@ class LightRay(CosmologySplice):
         if 'temperature' in data or ('gas', 'temperature') in data:
             mask = data[f] > 0
             if not np.any(mask):
-                raise RuntimeError(
-                    "No zones along light ray with nonzero %s. "
-                    "Please modify your light ray trajectory." % (f,))
+                err = "No zones along ray with nonzero %s. " \
+                      "Modify your ray trajectory." % (f,)
+                if fail_empty:
+                    raise RuntimeError(err)
+                else:
+                    mylog.warning(err)
+                extra_attrs["empty"] = True
             for key in data.keys():
                 data[key] = data[key][mask]
         save_as_dataset(ds, filename, data, field_types=field_types,
