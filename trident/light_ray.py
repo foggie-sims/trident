@@ -737,17 +737,13 @@ class LightRay(CosmologySplice):
         self._data = all_data
 
         if data_filename is not None:
-<<<<<<< HEAD
-            self._write_light_ray(data_filename, all_data)
+            self._write_light_ray(data_filename, all_data,
+                                  fail_empty=fail_empty)
             if need_hint:
                 ray_ds = load(data_filename, hint='YTDataLightRayDataset')
             else:
                 ray_ds = load(data_filename)
-=======
-            self._write_light_ray(data_filename, all_data,
-                                  fail_empty=fail_empty)
             ray_ds = YTDataLightRayDataset(data_filename)
->>>>>>> 9ab30ecee8a32978147dff2e9e5f34d8acd4a44d
 
             # temporary fix for yt-4.0 ytdata selection issue
             ray_ds.domain_left_edge = ray_ds.domain_left_edge.to('code_length')

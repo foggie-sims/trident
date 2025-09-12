@@ -364,7 +364,6 @@ class SpectrumGenerator(AbsorptionSpectrum):
         if isinstance(ray, str):
             ray = load(ray)
         if isinstance(ray, Dataset):
-<<<<<<< HEAD
             # temporary fix for yt-4.0 ytdata selection issue
             # This needs to be here because altering edges after
             # creating data containers is bad.
@@ -373,11 +372,9 @@ class SpectrumGenerator(AbsorptionSpectrum):
             ray.domain_left_edge = ray.domain_left_edge.to('code_length')
             ray.domain_right_edge = ray.domain_right_edge.to('code_length')
 
-=======
             if 'empty' in ray.parameters and ray.parameters['empty']:
                 mylog.warning("LightRay is empty. Not generating spectrum.")
                 return
->>>>>>> 9ab30ecee8a32978147dff2e9e5f34d8acd4a44d
             ad = ray.all_data()
         elif isinstance(ray, YTDataContainer):
             ad = ray
