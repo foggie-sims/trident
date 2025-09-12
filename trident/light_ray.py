@@ -38,7 +38,6 @@ from yt.utilities.physical_constants import \
 from yt.data_objects.static_output import \
     Dataset
 from yt.frontends.ytdata.data_structures import YTDataLightRayDataset
-from yt
 
 need_hint = version.parse(metadata.version("yt")) >= \
   version.parse("4.1.dev0")
