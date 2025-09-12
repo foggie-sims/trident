@@ -10,8 +10,50 @@ and there is a delay before new stable versions are released. It is
 then necessary to install those packages from source. See
 :ref:`install-dev-versions` for information on that.
 
+<<<<<<< HEAD
 Install Conda
 -------------
+=======
+.. _versions:
+
+Versions of Trident
+-------------------
+
+There are currently two versions of Trident: a `stable version
+<http://trident.readthedocs.io/en/stable>`_ and a `development version
+<http://trident.readthedocs.io/en/latest>`_.
+The stable version is tried and tested and easy to install with pip.
+The development version is actively being updated with new features.
+Thus, the installation steps are slightly different for stable and development,
+so pay attention in the steps below.  Don't worry if you want to change later,
+you can always switch between the two versions easily enough by following the
+directions in :ref:`uninstallation`.
+
+.. _stable-trident:
+
+Installing the Stable Version of Trident
+----------------------------------------
+
+Installation of the stable versions of yt and Trident is quite simple::
+
+    $ pip install trident
+
+Now, you can try to run Trident for the first time, where it will download
+some additional files.  See :ref:`step-3`, for more information::
+
+    $ python
+    >>> import trident
+
+Follow the instructions to download the ion_balance table and then verify that
+everything is working correctly.  You should now be ready to do some
+:ref:`step-4`
+
+Installing the Development Version of Trident
+---------------------------------------------
+
+Step 0: Ensure Conda is Installed
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>>>>>>> 9ab30ecee8a32978147dff2e9e5f34d8acd4a44d
 
 Conda is a package manager providing a clean, stand-alone installation of
 python that is self-contained in its installation directory.  yt & trident
@@ -24,7 +66,7 @@ You can see if conda is already installed by running:
 
    $ conda -h
 
-If conda is installed, move to the next step.  Otherwise install Mini-conda.
+If conda is installed, move to the next step.  Otherwise install `Miniconda`.
 
 Use the appropriate conda install script for your architecture.  We recommend
 getting the latest version of conda for Python3 for your architecture here:
@@ -70,10 +112,6 @@ is not required, but can be done with either ``conda`` or ``pip``.
 .. code-block:: bash
 
    $ conda install mpi4py
-
-.. code-block:: bash
-
-   $ pip install mpi4py
 
 Updating Your FOGGIE-Trident Installation
 -----------------------------------------

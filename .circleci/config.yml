@@ -204,7 +204,11 @@ jobs:
 
       - restore_cache:
           name: "Restore dependencies cache."
+<<<<<<< HEAD
           key: python-<< parameters.tag >>-dependencies-Zoldak
+=======
+          key: python-<< parameters.tag >>-dependencies-v10
+>>>>>>> 9ab30ecee8a32978147dff2e9e5f34d8acd4a44d
 
       - install-dependencies:
           yttag: << parameters.yttag >>
@@ -213,7 +217,11 @@ jobs:
 
       - save_cache:
           name: "Save dependencies cache."
+<<<<<<< HEAD
           key: python-<< parameters.tag >>-dependencies-Zoldak
+=======
+          key: python-<< parameters.tag >>-dependencies-v10
+>>>>>>> 9ab30ecee8a32978147dff2e9e5f34d8acd4a44d
           paths:
             - ~/.cache/pip
             - ~/venv
@@ -224,13 +232,21 @@ jobs:
 
       - restore_cache:
           name: "Restore test data cache."
+<<<<<<< HEAD
           key: test-data-Zuverink
+=======
+          key: test-data-v3
+>>>>>>> 9ab30ecee8a32978147dff2e9e5f34d8acd4a44d
 
       - download-test-data
 
       - save_cache:
           name: "Save test data cache."
+<<<<<<< HEAD
           key: test-data-Zuverink
+=======
+          key: test-data-v3
+>>>>>>> 9ab30ecee8a32978147dff2e9e5f34d8acd4a44d
           paths:
             - ~/.trident
             - ~/answer_test_data
@@ -240,14 +256,22 @@ jobs:
 
       - restore_cache:
           name: "Restore answer tests cache."
+<<<<<<< HEAD
           key: test-results-<< parameters.tag >>-<< parameters.yttag >>-Zimmermann
+=======
+          key: test-results-<< parameters.tag >>-<< parameters.yttag >>-v11
+>>>>>>> 9ab30ecee8a32978147dff2e9e5f34d8acd4a44d
 
       - run-tests:
           generate: 1
 
       - save_cache:
           name: "Save answer tests cache."
+<<<<<<< HEAD
           key: test-results-<< parameters.tag >>-<< parameters.yttag >>-Zimmermann
+=======
+          key: test-results-<< parameters.tag >>-<< parameters.yttag >>-v11
+>>>>>>> 9ab30ecee8a32978147dff2e9e5f34d8acd4a44d
           paths:
             - ~/answer_test_data/test_results
 
@@ -273,14 +297,22 @@ jobs:
       - checkout
       - restore_cache:
           name: "Restore dependencies cache."
+<<<<<<< HEAD
           key: python-<< parameters.tag >>-dependencies-Zoldak
+=======
+          key: python-<< parameters.tag >>-dependencies-v10
+>>>>>>> 9ab30ecee8a32978147dff2e9e5f34d8acd4a44d
       - set-env
       - install-dependencies:
           yttag: "YT_HEAD"
       - configure-trident
       - save_cache:
           name: "Save dependencies cache."
+<<<<<<< HEAD
           key: python-<< parameters.tag >>-dependencies-Zoldak
+=======
+          key: python-<< parameters.tag >>-dependencies-v10
+>>>>>>> 9ab30ecee8a32978147dff2e9e5f34d8acd4a44d
           paths:
             - ~/.cache/pip
             - ~/venv
@@ -294,28 +326,28 @@ workflows:
    normal-tests:
      jobs:
        - tests:
-           name: "Python 3.9 tests with yt tip"
-           tag: "3.9.13"
-           yttag: "YT_HEAD"
-
-       - tests:
            name: "Python 3.10 tests with yt tip"
-           tag: "3.10.13"
+           tag: "3.10.16"
            yttag: "YT_HEAD"
            coverage: 1
 
        - tests:
            name: "Python 3.11 tests with yt tip"
-           tag: "3.11.4"
+           tag: "3.11.11"
            yttag: "YT_HEAD"
 
        - tests:
            name: "Python 3.11 tests with yt gold"
-           tag: "3.11.4"
+           tag: "3.11.11"
+
+       - tests:
+           name: "Python 3.12 tests with yt tip"
+           tag: "3.12.8"
+           yttag: "YT_HEAD"
 
        - docs-test:
            name: "Test docs build"
-           tag: "3.11.4"
+           tag: "3.11.11"
 
    weekly:
      triggers:
@@ -327,21 +359,27 @@ workflows:
                 - main
      jobs:
        - tests:
-           name: "Python 3.9 tests with yt gold"
-           tag: "3.9.13"
+           name: "Python 3.10 tests with yt gold"
+           tag: "3.10.16"
 
        - tests:
-           name: "Python 3.9 tests with yt tip"
-           tag: "3.9.13"
+           name: "Python 3.10 tests with yt tip"
+           tag: "3.10.16"
            yttag: "YT_HEAD"
            coverage: 0
 
        - tests:
            name: "Python 3.11 tests with yt tip"
-           tag: "3.11.4"
+           tag: "3.11.11"
+           yttag: "YT_HEAD"
+           coverage: 0
+
+       - tests:
+           name: "Python 3.12 tests with yt tip"
+           tag: "3.12.8"
            yttag: "YT_HEAD"
            coverage: 0
 
        - docs-test:
            name: "Test docs build"
-           tag: "3.11.4"
+           tag: "3.11.11"
